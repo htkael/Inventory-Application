@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Team</title>
+    <link rel="stylesheet" href="/css/create-player.css" />
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <form action="/players/create-player" method="POST">
       <h1>Create New Player</h1>
       <label for="first_name">First Name:</label>

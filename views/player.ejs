@@ -6,8 +6,10 @@
     <title>
       <%= player.first_name %> <%= player.last_name %> - Player Details
     </title>
+    <link rel="stylesheet" href="/css/player.css" />
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <div class="player-details">
       <h1><%= player.first_name %> <%= player.last_name %></h1>
 

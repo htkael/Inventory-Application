@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Players</title>
+    <link rel="stylesheet" href="./css/players.css" />
   </head>
   <body>
+    <%- include('partials/navbar') %>
     <h1>Player List:</h1>
     <% players.forEach((player) => { %>
     <div class="player-card border rounded-lg p-4 shadow-md">
@@ -20,8 +22,8 @@
         <p><span class="font-medium">Hand:</span> <%= player.playing_hand %></p>
         <p><span class="font-medium">Age:</span> <%= player.age %></p>
       </div>
+      <a href="/players/<%= player.id %>"><button>Details</button></a>
     </div>
-    <a href="/players/<%= player.id %>"><button>Details</button></a>
     <% }) %>
     <a href="/players/create-player"><button>Create New Player</button></a>
   </body>
