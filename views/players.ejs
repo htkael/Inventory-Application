@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Players</title>
+  </head>
+  <body>
+    <h1>Player List:</h1>
+    <% players.forEach((player) => { %>
+    <div class="player-card border rounded-lg p-4 shadow-md">
+      <h3 class="text-xl font-bold mb-2">
+        <%= player.first_name %> <%= player.last_name %>
+      </h3>
+      <div class="grid grid-cols-2 gap-2 text-sm">
+        <p><span class="font-medium">Country:</span> <%= player.country %></p>
+        <p>
+          <span class="font-medium">Rank:</span> #<%= player.world_ranking %>
+        </p>
+        <p><span class="font-medium">Hand:</span> <%= player.playing_hand %></p>
+        <p><span class="font-medium">Age:</span> <%= player.age %></p>
+      </div>
+    </div>
+    <a href="/players/<%= player.id %>"><button>Details</button></a>
+    <% }) %>
+    <a href="/players/create-player"><button>Create New Player</button></a>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <main>
+      <% teams.forEach(team => { %>
+      <div class="card">
+        <p><%= team.team_name %></p>
+        <p><%= team.date_est %></p>
+        <p><%= team.rating %></p>
+        <a href="/team/<%= team.id %>"><button>Roster</button></a>
+      </div>
+      <% }); %>
+      <form action="/create-team" method="GET">
+        <button type="submit" class="delete-btn">Create New Team</button>
+      </form>
+    </main>
+  </body>
+</html>
