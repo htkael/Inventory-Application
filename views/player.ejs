@@ -11,20 +11,39 @@
   <body>
     <%- include('partials/navbar') %>
     <div class="player-details">
-      <h1><%= player.first_name %> <%= player.last_name %></h1>
-
-      <div class="details-grid">
-        <p><strong>Country:</strong> <%= player.country %></p>
-        <p><strong>World Ranking:</strong> #<%= player.world_ranking %></p>
-        <p><strong>Playing Hand:</strong> <%= player.playing_hand %></p>
-        <p><strong>Age:</strong> <%= player.age %></p>
+      <div class="player-header">
+        <h1><%= player.first_name %> <%= player.last_name %></h1>
       </div>
 
-      <form action="/players/<%= player.id %>/delete" method="POST">
-        <button type="submit" class="delete-btn">Delete Player</button>
-      </form>
+      <div class="details-grid">
+        <p>
+          <strong>Country</strong>
+          <%= player.country %>
+        </p>
+        <p>
+          <strong>World Ranking</strong>
+          #<%= player.world_ranking %>
+        </p>
+        <p>
+          <strong>Playing Hand</strong>
+          <%= player.playing_hand %>
+        </p>
+        <p>
+          <strong>Age</strong>
+          <%= player.age %>
+        </p>
+      </div>
 
-      <a href="/players">Back to Players List</a>
+      <div class="player-actions">
+        <form action="/players/<%= player.id %>/edit" method="GET">
+          <button type="submit" class="edit-btn">Edit Player</button>
+        </form>
+        <form action="/players/<%= player.id %>/delete" method="POST">
+          <button type="submit" class="delete-btn">Delete Player</button>
+        </form>
+      </div>
+
+      <a href="/players" class="back-link">← Back to Players List</a>
     </div>
   </body>
 </html>

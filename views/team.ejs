@@ -8,29 +8,47 @@
   </head>
   <body>
     <%- include('partials/navbar') %>
-    <h1><%= team.team_name %></h1>
-    <h2>Players:</h2>
-    <% players.forEach((player) => { %>
-    <div class="player-card border rounded-lg p-4 shadow-md">
-      <h3 class="text-xl font-bold mb-2">
-        <%= player.first_name %> <%= player.last_name %>
-      </h3>
-      <div class="grid grid-cols-2 gap-2 text-sm">
-        <p><span class="font-medium">Country:</span> <%= player.country %></p>
-        <p>
-          <span class="font-medium">Rank:</span> #<%= player.world_ranking %>
-        </p>
-        <p><span class="font-medium">Hand:</span> <%= player.playing_hand %></p>
-        <p><span class="font-medium">Age:</span> <%= player.age %></p>
-        <p>
-          <span class="font-medium">Joined:</span> <%=
-          player.join_date.toLocaleDateString() %>
-        </p>
+
+    <div class="team-header">
+      <h1><%= team.team_name %> - <%= team.rating %></h1>
+      <h2>Players</h2>
+    </div>
+
+    <div class="players-container">
+      <div class="players-grid">
+        <% players.forEach((player) => { %>
+        <div class="player-card">
+          <h3><%= player.first_name %> <%= player.last_name %></h3>
+          <div class="player-info">
+            <p><span>Country:</span> <%= player.country %></p>
+            <p><span>Rank:</span> #<%= player.world_ranking %></p>
+            <p><span>Hand:</span> <%= player.playing_hand %></p>
+            <p><span>Age:</span> <%= player.age %></p>
+            <p>
+              <span>Joined:</span> <%= player.join_date.toLocaleDateString() %>
+            </p>
+          </div>
+          <form
+            action="/team/<%= team.id %>/delete-player/<%= player.player_id %>"
+            method="POST"
+          >
+            <button type="submit" class="fire-btn">Fire Player</button>
+          </form>
+        </div>
+        <% }) %>
       </div>
     </div>
-    <% }) %>
-    <form action="/team/<%= team.id %>/delete" method="POST">
-      <button type="submit" class="delete-btn">Delete Team</button>
-    </form>
+
+    <div class="team-actions">
+      <form action="/team/<%= team.id %>/add-player" method="GET">
+        <button type="submit" class="add-btn">Add Players</button>
+      </form>
+      <form action="/team/<%= team.id %>/edit" method="GET">
+        <button type="submit" class="edit-btn">Edit Team Details</button>
+      </form>
+      <form action="/team/<%= team.id %>/delete" method="POST">
+        <button type="submit" class="delete-btn">Delete Team</button>
+      </form>
+    </div>
   </body>
 </html>

@@ -3,31 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Player</title>
+    <title>Edit <%= player.first_name %> <%= player.last_name %></title>
     <link rel="stylesheet" href="/css/create-player.css" />
   </head>
   <body>
     <%- include('partials/navbar') %>
-
     <div class="form-container">
-      <% if (locals.errors && errors.length > 0) { %>
-      <div class="error-container">
-        <% errors.forEach(error => { %>
-        <p class="error"><%= error.msg %></p>
-        <% }) %>
-      </div>
-      <% } %>
-
-      <form action="/players/create-player" method="POST">
-        <h1>Create New Player</h1>
-
+      <form action="/players/<%= player.id %>/edit" method="POST">
+        <h1>Edit Player Details</h1>
+        
         <div class="form-group">
           <label for="first_name">First Name:</label>
           <input
             type="text"
             name="first_name"
             id="first_name"
-            value="<%= locals.formData.first_name %>"
+            value="<%= player.first_name %>"
             required
           />
         </div>
@@ -38,7 +29,7 @@
             type="text"
             name="last_name"
             id="last_name"
-            value="<%= locals.formData.last_name %>"
+            value="<%= player.last_name %>"
             required
           />
         </div>
@@ -49,7 +40,7 @@
             type="text"
             name="country"
             id="country"
-            value="<%= locals.formData.country %>"
+            value="<%= player.country %>"
             required
           />
         </div>
@@ -60,7 +51,7 @@
             type="number"
             name="world_ranking"
             id="world_ranking"
-            value="<%= locals.formData.world_ranking %>"
+            value="<%= player.world_ranking %>"
             min="1"
             required
           />
@@ -68,14 +59,13 @@
 
         <div class="form-group">
           <label for="playing_hand">Playing Hand:</label>
-          <select
-            name="playing_hand"
-            id="playing_hand"
-            value="<%= locals.formData.playing_hand %>"
+          <select 
+            name="playing_hand" 
+            id="playing_hand" 
             required
           >
-            <option value="right">Right</option>
-            <option value="left">Left</option>
+            <option value="right" <%= player.playing_hand === 'right' ? 'selected' : '' %>>Right</option>
+            <option value="left" <%= player.playing_hand === 'left' ? 'selected' : '' %>>Left</option>
           </select>
         </div>
 
@@ -85,14 +75,14 @@
             type="number"
             name="age"
             id="age"
+            value="<%= player.age %>"
             min="15"
             max="120"
-            value="<%= locals.formData.age %>"
             required
           />
         </div>
 
-        <button type="submit" class="form-button">Create Player!</button>
+        <button type="submit" class="form-button">Confirm Changes</button>
       </form>
     </div>
   </body>

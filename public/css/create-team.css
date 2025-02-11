@@ -1,74 +1,90 @@
-body {
-  font-family: "Arial", sans-serif;
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
+@import url("../css/index.css");
 
-form {
-  background: white;
-  padding: 30px;
+/* Form container */
+.form-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  color: #2c5282;
-  margin-top: 0;
-  margin-bottom: 24px;
+.form-container h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #4a5568;
-  font-weight: 500;
+/* Form group */
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Inputs */
 input {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 20px;
-  border: 1px solid #e2e8f0;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 input:focus {
   outline: none;
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
-button {
-  background-color: #4299e1;
+/* Form button */
+.form-button {
+  background-color: #3498db;
   color: white;
+  padding: 0.75rem 1.5rem;
   border: none;
-  padding: 12px 24px;
   border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 16px;
   width: 100%;
-  transition: background-color 0.2s;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #3182ce;
+.form-button:hover {
+  background-color: #2980b9;
 }
 
-nav {
-  padding: 1rem;
-  display: grid;
-  justify-content: center;
-  align-items: center;
+/* Error state */
+input.error {
+  border-color: #e74c3c;
 }
 
-a {
-  display: flex;
-  text-decoration: none;
-  align-items: center;
-  justify-content: center;
-  color: inherit;
+.error-message {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-container {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .form-container h1 {
+    font-size: 1.75rem;
+  }
 }

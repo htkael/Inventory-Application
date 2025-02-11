@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Players to <%= team.team_name %></title>
+    <link rel="stylesheet" href="/css/add-player.css" />
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+
+    <div class="add-players-container">
+      <div class="add-players-header">
+        <h1>Add Players to <%= team.team_name %></h1>
+      </div>
+
+      <form action="/team/<%= team.id %>/add-player" method="POST">
+        <div class="players-list">
+          <% availablePlayers.forEach(player => { %>
+          <div class="player-option">
+            <input
+              type="checkbox"
+              name="selectedPlayers"
+              value="<%= player.id %>"
+              id="player-<%= player.id %>"
+            />
+            <label for="player-<%= player.id %>">
+              <%= player.first_name %> <%= player.last_name %>
+              <span class="text-gray-600">
+                (<%= player.country %>, Rank: #<%= player.world_ranking %>)
+              </span>
+            </label>
+          </div>
+          <% }) %>
+        </div>
+
+        <div class="submit-container">
+          <button type="submit" class="submit-button">
+            Add Selected Players
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

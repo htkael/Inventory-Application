@@ -6,7 +6,9 @@ async function getTeams() {
 }
 
 async function getPlayers() {
-  const { rows } = await pool.query("SELECT * FROM players");
+  const { rows } = await pool.query(
+    "SELECT * FROM players ORDER BY world_ranking"
+  );
   return rows;
 }
 
@@ -26,7 +28,7 @@ async function getTeam(id) {
 
 async function getPlayersFromTeam(id) {
   const { rows } = await pool.query(
-    "SELECT * FROM players INNER JOIN team_players ON players.id = team_players.player_id WHERE team_players.id = ($1)",
+    "SELECT * FROM players INNER JOIN team_players ON players.id = team_players.player_id WHERE team_players.team_id = ($1)",
     [id]
   );
   return rows;
@@ -62,6 +64,55 @@ async function deleteTeam(id) {
   await pool.query("DELETE FROM teams WHERE id = ($1)", [id]);
 }
 
+async function getAvailablePlayers(id) {
+  const { rows } = await pool.query(
+    "SELECT * FROM players WHERE id NOT IN (SELECT player_id FROM team_players WHERE team_id = ($1))",
+    [id]
+  );
+  return rows;
+}
+
+async function addPlayers(team_id, playerIds, join_date) {
+  const values = playerIds
+    .map((_, index) => `($1, $${index + 2}, $${playerIds.length + 2})`)
+    .join(", ");
+  const query = `INSERT INTO team_players (team_id, player_id, join_date) VALUES ${values}`;
+
+  const params = [team_id, ...playerIds, join_date];
+
+  await pool.query(query, params);
+}
+
+async function removeFromTeam(team_id, player_id) {
+  await pool.query(
+    "DELETE FROM team_players WHERE team_id = $1 AND player_id = $2",
+    [team_id, player_id]
+  );
+}
+
+async function editPlayer(
+  id,
+  first_name,
+  last_name,
+  country,
+  world_ranking,
+  playing_hand,
+  age
+) {
+  playing_hand = playing_hand.charAt(0).toUpperCase() + playing_hand.slice(1);
+  await pool.query(
+    "UPDATE players SET first_name = $2, last_name = $3, country = $4, world_ranking = $5, playing_hand = $6, age = $7 WHERE id = $1",
+    [id, first_name, last_name, country, world_ranking, playing_hand, age]
+  );
+}
+
+async function editTeam(id, team_name, rating) {
+  await pool.query(
+    "UPDATE teams SET team_name = $2, rating = $3 WHERE id = $1",
+    [id, team_name, rating]
+  );
+}
+
 module.exports = {
   getTeams,
   getPlayers,
@@ -72,4 +123,9 @@ module.exports = {
   deletePlayer,
   getPlayer,
   deleteTeam,
+  getAvailablePlayers,
+  addPlayers,
+  removeFromTeam,
+  editPlayer,
+  editTeam,
 };
